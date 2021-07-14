@@ -1,0 +1,33 @@
+{
+  "name": "forktest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "precompile": "hh clean",
+    "compile": "hh compile",
+    "pretestx": "yarn compile",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^1.0.0",
+    "@nomiclabs/hardhat-etherscan": "^2.1.4",
+    "@nomiclabs/hardhat-waffle": "^1.0.0",
+    "@openzeppelin/contracts": "^2.5.1",
+    "@uniswap/lib": "4.0.1-alpha",
+    "@uniswap/v2-core": "1.0.0",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.4.1",
+    "waffle": "^0.0.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "ethereum-waffle": "^2.4.1",
+    "ethereumjs-util": "^6.2.0",
+    "hardhat": "^2.4.3",
+    "mocha": "^6.2.2"
+  }
+}

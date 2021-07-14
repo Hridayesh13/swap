@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@alch/alchemy-web3": "^1.1.1",
+    "@ethersproject/address": "^5.4.0",
+    "@ethersproject/contracts": "^5.4.0",
+    "@ethersproject/providers": "^5.4.1",
+    "@ethersproject/solidity": "^5.4.0",
+    "@openzeppelin/contracts": "^2.5.1",
+    "@uniswap/lib": "4.0.1-alpha",
+    "@uniswap/sdk": "^3.0.3",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-sdk": "^3.0.0",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "ethereum-waffle": "^2.4.1",
+    "ethers": "^5.4.1",
+    "hardhat": "^2.4.3",
+
+    "@types/chai": "^4.2.6",
+    "@types/mocha": "^5.2.7",
+    "ethereumjs-util": "^6.2.0",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"  
+  }
+}
