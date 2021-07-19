@@ -1,23 +1,15 @@
 const { expect, use } = require("chai")
-const { ethers, Contract } = require("ethers")
 const { deployContract, MockProvider, solidity } = require("ethereum-waffle")
 const { MaxUint256 } = require('@ethersproject/constants')
 
+const { expandTo18Decimals } = require('./shared/utilities')
 
-// Import utilities from Test Helpers
-// const { BN, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
+const ERC20 = require("../artifacts/contracts/core/test/ERC20.sol/ERC20.json")
 
-const ERC20 = require("../../artifacts/contracts/core/test/ERC20.sol/ERC20.json")
 use(solidity)
-
-function expandTo18Decimals(n) {
-  return ethers.utils.bigNumberify(n).mul(ethers.utils.bigNumberify(10).pow(18))
-}
 
 const TOTAL_SUPPLY = expandTo18Decimals(10000)
 const TEST_AMOUNT = expandTo18Decimals(10)
-// const TOTAL_SUPPLY = 10000
-// const TEST_AMOUNT = 10
 
 // Start test block
 describe('ERC20 (UniswapToken)', function () {

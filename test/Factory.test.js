@@ -1,27 +1,12 @@
 const { expect, use } = require("chai")
-// const { ethers } = require("hardhat")
 const { ethers, Contract } = require("ethers");
-const { deployContract, MockProvider, solidity, createFixtureLoader } = require("ethereum-waffle")
+const { MockProvider, solidity, createFixtureLoader } = require("ethereum-waffle")
 const { AddressZero } = require('@ethersproject/constants')
-const {
-  keccak256
-} = require("@ethersproject/keccak256");
 
-// const {
-//   BigNumber,
-//   bigNumberify,
-//   getAddress,
-//   keccak256,
-//   defaultAbiCoder,
-//   toUtf8Bytes,
-//   solidityPack
-// } = require('ethers/utils')
+const { getCreate2Address } = require('./shared/utilities')
+const { factoryFixture } = require('./shared/fixtures')
 
-// import { getCreate2Address } from './shared/utilities'
-// import { factoryFixture } from './shared/fixtures'
-
-const Factory = require("../../artifacts/contracts/core/UniswapV2Factory.sol/UniswapV2Factory.json")
-const UniswapV2Pair = require("../../artifacts/contracts/core/UniswapV2Pair.sol/UniswapV2Pair.json")
+const UniswapV2Pair = require("../artifacts/contracts/core/UniswapV2Pair.sol/UniswapV2Pair.json")
 
 const TEST_ADDRESSES = [
   '0x1000000000000000000000000000000000000000',
@@ -29,30 +14,6 @@ const TEST_ADDRESSES = [
 ]
 
 use(solidity)
-
-const overrides = {
-  gasLimit: 9999999
-}
-async function factoryFixture(_, [wallet]) {
-  const factory = await deployContract(wallet, Factory, [wallet.address], overrides)
-  return { factory }
-}
-
-function getCreate2Address(
-  factoryAddress,
-  [tokenA, tokenB],
-  bytecode
-) {
-  const [token0, token1] = tokenA < tokenB ? [tokenA, tokenB] : [tokenB, tokenA]
-  const create2Inputs = [
-    '0xff',
-    factoryAddress,
-    keccak256(ethers.utils.solidityPack(['address', 'address'], [token0, token1])),
-    keccak256(bytecode)
-  ]
-  const sanitizedInputs = `0x${create2Inputs.map(i => i.slice(2)).join('')}`
-  return ethers.utils.getAddress(`0x${keccak256(sanitizedInputs).slice(-40)}`)
-}
 
 // Start test block
 describe('Factory', function () {
@@ -70,11 +31,6 @@ describe('Factory', function () {
     const fixture = await loadFixture(factoryFixture)
     factory = fixture.factory
   })
-
-  // beforeEach(async function () {
-  //   [wallet, other, addr1, addr2] = provider.getWallets();
-  //   factory = await deployContract(wallet, Factory, [wallet.address]);
-  // });
   
   describe('Uniswap tests', function () {
     it('feeTo, feeToSetter, allPairsLength', async () => {

@@ -1,68 +1,18 @@
 const { expect, use } = require("chai")
 const { ethers, Contract } = require("ethers");
-const { deployContract, MockProvider, solidity, createFixtureLoader } = require("ethereum-waffle")
-// import { BigNumber, bigNumberify } from 'ethers/utils'
+const { MockProvider, solidity, createFixtureLoader } = require("ethereum-waffle")
 
-// import { expandTo18Decimals, mineBlock, encodePrice } from './shared/utilities'
-// import { pairFixture } from './shared/fixtures'
+const { expandTo18Decimals, mineBlock, encodePrice } = require('./shared/utilities')
+const { pairFixture } = require('./shared/fixtures')
 
 const { AddressZero } = require('@ethersproject/constants')
 
 const MINIMUM_LIQUIDITY = ethers.utils.bigNumberify(10).pow(3)
 
-const UniswapV2Factory = require("../../artifacts/contracts/core/UniswapV2Factory.sol/UniswapV2Factory.json")
-const UniswapV2Pair = require("../../artifacts/contracts/core/UniswapV2Pair.sol/UniswapV2Pair.json")
-const ERC20 = require("../../artifacts/contracts/core/Token1.sol/Token1.json")
-
 use(solidity)
-
-function expandTo18Decimals(n) {
-  return ethers.utils.bigNumberify(n).mul(ethers.utils.bigNumberify(10).pow(18))
-}
-
-async function mineBlock(provider, timestamp) {
-  await new Promise(async (resolve, reject) => {
-    ;(provider._web3Provider.sendAsync)(
-      { jsonrpc: '2.0', method: 'evm_mine', params: [timestamp] },
-      (error, result) => {
-        if (error) {
-          reject(error)
-        } else {
-          resolve(result)
-        }
-      }
-    )
-  })
-}
-
-function encodePrice(reserve0, reserve1) {
-  return [reserve1.mul(ethers.utils.bigNumberify(2).pow(112)).div(reserve0), reserve0.mul(ethers.utils.bigNumberify(2).pow(112)).div(reserve1)]
-}
 
 const overrides = {
   gasLimit: 9999999
-}
-
-async function factoryFixture(_, [wallet]) {
-  const factory = await deployContract(wallet, UniswapV2Factory, [wallet.address], overrides)
-  return { factory }
-}
-
-async function pairFixture(provider, [wallet]){
-  const { factory } = await factoryFixture(provider, [wallet])
-
-  const tokenA = await deployContract(wallet, ERC20, [expandTo18Decimals(10000)], overrides)
-  const tokenB = await deployContract(wallet, ERC20, [expandTo18Decimals(10000)], overrides)
-
-  await factory.createPair(tokenA.address, tokenB.address, overrides)
-  const pairAddress = await factory.getPair(tokenA.address, tokenB.address)
-  const pair = new Contract(pairAddress, JSON.stringify(UniswapV2Pair.abi), provider).connect(wallet)
-
-  const token0Address = (await pair.token0()).address
-  const token0 = tokenA.address === token0Address ? tokenA : tokenB
-  const token1 = tokenA.address === token0Address ? tokenB : tokenA
-
-  return { factory, token0, token1, pair }
 }
 
 describe('UniswapV2Pair', () => {
@@ -227,8 +177,9 @@ describe('UniswapV2Pair', () => {
     await mineBlock(provider, (await provider.getBlock('latest')).timestamp + 1)
     const tx = await pair.swap(expectedOutputAmount, 0, wallet.address, '0x', overrides)
     const receipt = await tx.wait()
-    expect(receipt.gasUsed).to.eq(74179)
-    console.log("Uniswap expected gas = 73462 but we got 74179")
+    expect(receipt.gasUsed).to.eq(73973)
+    console.log("Uniswap expected gas = 73462 but we got 73973")
+    console.log("When we use Openzeppelin ERC20 instead of UniswapERC20, gas used is 74179")
   })
 
   it('burn', async () => {

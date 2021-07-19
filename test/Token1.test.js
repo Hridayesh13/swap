@@ -1,20 +1,15 @@
 const { expect, use } = require("chai")
-const { ethers, Contract } = require("ethers")
 const { deployContract, MockProvider, solidity } = require("ethereum-waffle")
 const { MaxUint256 } = require('@ethersproject/constants')
 
-const Token1 = require("../../artifacts/contracts/core/Token1.sol/Token1.json")
+const { expandTo18Decimals } = require('./shared/utilities')
+
+const Token1 = require("../artifacts/contracts/core/Token1.sol/Token1.json")
 
 use(solidity)
 
-function expandTo18Decimals(n) {
-  return ethers.utils.bigNumberify(n).mul(ethers.utils.bigNumberify(10).pow(18))
-}
-
 const TOTAL_SUPPLY = expandTo18Decimals(10000)
 const TEST_AMOUNT = expandTo18Decimals(10)
-// const TOTAL_SUPPLY = 10000
-// const TEST_AMOUNT = 10
 
 // Start test block
 describe('Token1 (Openzeppelin)', function () {
@@ -37,8 +32,7 @@ describe('Token1 (Openzeppelin)', function () {
       expect(name).to.eq('Token 1')
       expect(await token.symbol()).to.eq('TK1')
       expect(await token.decimals()).to.eq(18)
-      // expect(await token.totalSupply()).to.eq(TOTAL_SUPPLY)
-      // console.log(await token.totalSupply())
+      expect(await token.totalSupply()).to.eq(TOTAL_SUPPLY)
       expect(await token.balanceOf(wallet.address)).to.eq(TOTAL_SUPPLY)
     })
 
