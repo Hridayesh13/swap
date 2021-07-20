@@ -3,6 +3,23 @@
 //
 // When running the script with `hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
+/*
+
+ _______ _________ _______  _______
+(  ____ \\__   __/(  ___  )(  ____ )
+| (    \/   ) (   | (   ) || (    )|
+| (_____    | |   | |   | || (____)|
+(_____  )   | |   | |   | ||  _____)
+      ) |   | |   | |   | || (
+/\____) |   | |   | (___) || )
+\_______)   )_(   (_______)|/
+
+This deploy script is no longer in use, but is left for reference purposes!
+
+our project now uses hardhat-deploy to manage deployments, see the /deploy folder
+And learn more here: https://www.npmjs.com/package/hardhat-deploy
+
+*/
 const hre = require("hardhat");
 
 

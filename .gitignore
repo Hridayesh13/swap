@@ -4,3 +4,9 @@ build/
 artifacts/
 .env
 testx/
+abi/
+coverage/
+exports/
+package-lock.json
+coverage.json
+.DS_Store

@@ -229,9 +229,16 @@ module.exports = {
     ],
   },
   namedAccounts: {
-    deployer: 0,
-    // tokenOwner: 1,
-  }
+    deployer: {
+      default: 0,
+    },
+    dev: {
+      // Default to 1
+      default: 1,
+      // dev address mainnet
+      // 1: "",
+    },
+  },
   // ovm: {
   //   solcVersion: "0.7.6",
   // },
