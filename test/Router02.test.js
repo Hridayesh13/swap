@@ -2,7 +2,7 @@ const { expect, use } = require('chai')
 const { solidity, MockProvider, createFixtureLoader, deployContract } = require('ethereum-waffle')
 const { Contract, utils } = require('ethers')
 
-const { MaxUint256 } = require('ethers/constants')
+const { MaxUint256 } = require('@ethersproject/constants')
 const IUniswapV2Pair = require('@uniswap/v2-core/build/IUniswapV2Pair.json')
 
 const { v2Fixture } = require('./shared/fixtures')

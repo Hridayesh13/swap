@@ -10,7 +10,7 @@ testing swap and functions of uniswap v2 fork
 > `npx hardaht node`  
 
 > in another terminal  
-> `npx hardhat run scripts/deploy.js`
+> `npx hardhat deploy --network localhost`
 
 > test  
 > `npx hardhat test`

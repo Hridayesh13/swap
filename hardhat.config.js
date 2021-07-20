@@ -5,7 +5,7 @@
 // require("@nomiclabs/hardhat-waffle");
 // require("@tenderly/hardhat-tenderly");
 
-// require("hardhat-deploy");
+require("hardhat-deploy");
 
 // require("@eth-optimism/hardhat-ovm");
 // require("@nomiclabs/hardhat-ethers");
@@ -228,6 +228,10 @@ module.exports = {
       }
     ],
   },
+  namedAccounts: {
+    deployer: 0,
+    // tokenOwner: 1,
+  }
   // ovm: {
   //   solcVersion: "0.7.6",
   // },
