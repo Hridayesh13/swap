@@ -17,6 +17,11 @@ module.exports = async ({getNamedAccounts, deployments}) => {
       args: [TOTAL_SUPPLY],
       log: true,
     });
+    await deploy('Token2', {
+        from: deployer,
+        args: [TOTAL_SUPPLY],
+        log: true,
+      });
     // await deploy('ERC20', {
     //     from: deployer,
     //     args: [TOTAL_SUPPLY],
@@ -25,5 +30,6 @@ module.exports = async ({getNamedAccounts, deployments}) => {
   };
   module.exports.tags = [
       'Token1'
+      , 'Token2'
     // , 'ERC20'
 ];

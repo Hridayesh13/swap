@@ -1,60 +1,27 @@
 // const { utils } = require("ethers");
 // const fs = require("fs");
 // const chalk = require("chalk");
-
-// require("@nomiclabs/hardhat-waffle");
-// require("@tenderly/hardhat-tenderly");
-
-require("hardhat-deploy");
-
-// require("@eth-optimism/hardhat-ovm");
-// require("@nomiclabs/hardhat-ethers");
-
 // const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 
-/*
-      📡 This is where you configure your deploy configuration for 🏗 scaffold-eth
+// require("@tenderly/hardhat-tenderly");
 
-      check out `packages/scripts/deploy.js` to customize your deployment
+// require("@eth-optimism/hardhat-ovm");
 
-      out of the box it will auto deploy anything in the `contracts` folder and named *.sol
-      plus it will use *.args for constructor args
-*/
-
-// import { config as dotEnvConfig } from "dotenv";
-// dotEnvConfig();
-
-// import { HardhatUserConfig } from "hardhat/types";
-
-// import "@nomiclabs/hardhat-waffle";
-// import "@typechain/hardhat";
-// import "@nomiclabs/hardhat-etherscan";
-// import "fs";
-// import "solidity-coverage";
+require("hardhat-deploy");
+require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-etherscan");
 
 require('dotenv').config();
 require("@nomiclabs/hardhat-waffle");
 
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-// task("accounts", "Prints the list of accounts", async () => {
-//   const accounts = await ethers.getSigners();
+task("accounts", "Prints the list of accounts", async () => {
+  const accounts = await ethers.getSigners();
 
-//   for (const account of accounts) {
-//     console.log(account.address);
-//   }
-// });
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
-// require('dotenv').config();
-// require("@nomiclabs/hardhat-ethers");
-// require("@nomiclabs/hardhat-etherscan");
+  for (const account of accounts) {
+    console.log(account.address);
+  }
+});
 
 //
 // Select the network you want to deploy to here:

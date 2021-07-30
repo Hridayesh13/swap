@@ -179,7 +179,7 @@ describe('UniswapV2Pair', () => {
     const receipt = await tx.wait()
     expect(receipt.gasUsed).to.eq(73973)
     console.log("Uniswap expected gas = 73462 but we got 73973")
-    console.log("When we use Openzeppelin ERC20 instead of UniswapERC20, gas used is 74179")
+    console.log("When we use Openzeppelin ERC20 Token instead of UniswapERC20, gas used is 74179")
   })
 
   it('burn', async () => {
