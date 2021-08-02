@@ -40,6 +40,14 @@ function mnemonic() {
   }
   return "";
 }
+
+const { INFURA_ROPSTEN_RPC_URL, ALCHEMY_ROPSTEN_RPC_URL, PRIVATE_KEY } = process.env;
+
+const accounts = {
+  mnemonic: process.env.MNEMONIC || "test test test test test test test test test test test junk",
+  // accountsBalance: "990000000000000000000",
+}
+
 // const config: HardhatUserConfig = {
 module.exports = {
   defaultNetwork,
@@ -50,12 +58,24 @@ module.exports = {
   // (you will need to restart the `yarn run start` dev server after editing the .env)
 
   networks: {
-    localhost: {
-      url: "http://localhost:8545",
-      /*
-        notice no mnemonic here? it will just use account 0 of the hardhat node to deploy
-        (you can put in a mnemonic here to set the deployer locally)
-      */
+    // localhost: {
+    //   url: "http://localhost:8545",
+    //   /*
+    //     notice no mnemonic here? it will just use account 0 of the hardhat node to deploy
+    //     (you can put in a mnemonic here to set the deployer locally)
+    //   */
+    // },
+    ropsten: {
+      // url: INFURA_ROPSTEN_RPC_URL,
+      url: ALCHEMY_ROPSTEN_RPC_URL,
+      // accounts: [`0x${PRIVATE_KEY}`]
+      accounts,
+      chainId: 3,
+      live: true,
+      saveDeployments: true,
+      tags: ["staging"],
+      gasPrice: 5000000000,
+      gasMultiplier: 2,
     },
     // rinkeby: {
     //   url: "https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)

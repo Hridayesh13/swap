@@ -1,4 +1,4 @@
-// const { WETH } = require("@uniswap/sdk");
+const { WETH } = require("@uniswap/sdk");
 
 module.exports = async function ({ getNamedAccounts, deployments }) {
   const { deploy } = deployments;
@@ -11,8 +11,8 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 
   if (chainId === "31337") {
     wethAddress = (await deployments.get("WETH9")).address;
-  // } else if (chainId in WETH) {
-  //   wethAddress = WETH[chainId].address;
+  } else if (chainId in WETH) {
+    wethAddress = WETH[chainId].address;
   } else {
     throw Error("No WETH!");
   }

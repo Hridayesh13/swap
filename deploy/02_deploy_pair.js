@@ -1,8 +1,8 @@
 // Defining bytecode and abi from original contract on mainnet to ensure bytecode matches and it produces the same pair code hash
-const {
-    bytecode,
-    abi,
-  } = require("../deployments/localhost/UniswapV2Factory.json");
+// const {
+//     bytecode,
+//     abi,
+//   } = require("../deployments/mainnet/UniswapV2Factory.json");
   
   module.exports = async function ({
     ethers,
@@ -14,16 +14,16 @@ const {
   
     const { deployer, dev } = await getNamedAccounts();
     
-    await deploy("UniswapV2Factory", {
-      contract: {
-        abi,
-        bytecode,
-      },
+    await deploy("UniswapV2Pair", {
+    //   contract: {
+    //     abi,
+    //     bytecode,
+    //   },
       from: deployer,
-      args: [dev],
+      // args: [dev],
       log: true,
       deterministicDeployment: false,
     });
   };
   
-  module.exports.tags = ["UniswapV2Factory", "AMM"];
+  module.exports.tags = ["UniswapV2Pair", "AMM"];
