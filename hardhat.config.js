@@ -226,6 +226,11 @@ module.exports = {
       // 1: "",
     },
   },
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: process.env.ETHERSCAN_API_KEY
+  }
   // ovm: {
   //   solcVersion: "0.7.6",
   // },

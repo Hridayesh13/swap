@@ -2,7 +2,7 @@
 const {
     bytecode,
     abi,
-  } = require("../deployments/localhost/UniswapV2Factory.json");
+  } = require("../artifacts/contracts/core/UniswapV2Factory.sol/UniswapV2Factory.json");
   
   module.exports = async function ({
     ethers,
@@ -12,7 +12,7 @@ const {
   }) {
     const { deploy } = deployments;
   
-    const { deployer, dev } = await getNamedAccounts();
+    const { deployer } = await getNamedAccounts();
     
     await deploy("UniswapV2Factory", {
       contract: {
@@ -20,7 +20,7 @@ const {
         bytecode,
       },
       from: deployer,
-      args: [dev],
+      args: [deployer],
       log: true,
       deterministicDeployment: false,
     });

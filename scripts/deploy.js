@@ -21,7 +21,17 @@ And learn more here: https://www.npmjs.com/package/hardhat-deploy
 
 */
 const hre = require("hardhat");
+const { WETH } = require("@uniswap/sdk");
 
+// const {
+//     bigNumberify,
+// } = require('ethers/utils')
+
+function expandTo18Decimals(n) {
+    return ethers.BigNumber.from(n).mul(ethers.BigNumber.from(10).pow(18))
+}
+
+const TOTAL_SUPPLY = expandTo18Decimals(10000)
 
 async function main() {
   
@@ -39,32 +49,47 @@ async function main() {
 
     console.log("Account balance:", (await deployer.getBalance()).toString());
 
+    // const Token1 = await ethers.getContractFactory("Token1");
+    // const token1 = await Token1.deploy();
+    
+    // const Token2 = await ethers.getContractFactory("Token2");
+    // const token2 = await Token2.deploy();
+
     const Factory = await ethers.getContractFactory("UniswapV2Factory");
     const factory = await Factory.deploy(deployer.address);
-    
-    const Token1 = await ethers.getContractFactory("Token1");
-    const token1 = await Token1.deploy();
-    
-    const Token2 = await ethers.getContractFactory("Token2");
-    const token2 = await Token2.deploy();
-    
-    await factory.createPair(token1.address, token2.address);
+    console.log("Factory at :", factory.address)
+    // await factory.createPair(token1.address, token2.address);
 
-    console.log("Account balance after deploy:", (await deployer.getBalance()).toString());
+    // console.log("Account balance after deploy:", (await deployer.getBalance()).toString());
 
     const Router = await ethers.getContractFactory('UniswapV2Router02');
-    const WETH = await ethers.getContractFactory('WETH');
+    const WETH9 = await ethers.getContractFactory('WETH');
+    const weth = await WETH9.deploy();
+    console.log("WETH at :", weth.address)
 
-    let weth;
+    // let weth;
+    // let wethAddress;
     const FACTORY_ADDRESS = factory.address;
 
-    // if(_network === 'mainnet') {
-    //     weth = await WETH.at('0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2');
+    // if (chainId === "31337") {
+    //     wethAddress = (await deployments.get("WETH9Mock")).address;
+    // } else if (chainId in WETH) {
+    //     wethAddress = WETH[chainId].address;
     // } else {
-        weth = await WETH.deploy();
+    //     throw Error("No WETH!");
+    // }
+
+    // if(_network === 'mainnet') {
+    //     weth = await WETH9.at('0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2');
+    // } else if (_network === 'ropsten') {
+        // weth = await WETH9.at(WETH[3].address);
+        // console.log("WETH at : ", WETH[3].address)
+    // } else {
+    //     weth = await WETH9.deploy();
     // }
 
     const r02 = await Router.deploy(FACTORY_ADDRESS, weth.address);
+    console.log("Router at :", r02.address)
     console.log("Account balance after deploy:", (await deployer.getBalance()).toString());
 }
 
