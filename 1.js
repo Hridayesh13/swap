@@ -45,6 +45,9 @@ console.log(trade2.nextMidPrice.toSignificant(6))
 console.log(route2.midPrice.toSignificant(6)) // 202.081
 console.log(route2.midPrice.invert().toSignificant(6)) // 0.00494851
 
+const wethAddress = WETH[chainId].address;
+console.log(wethAddress) // 202.081
+
 /*
 const slippageTolerance = new Percent('50', '10000');
 const amountOutMin = trade.minimumAmountOut(slippageTolerance).raw;

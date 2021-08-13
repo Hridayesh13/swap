@@ -12,7 +12,7 @@ function expandTo18Decimals(n) {
 //     return ethers.BigNumber.from(n).mul(ethers.BigNumber.from(10).pow(18))
 // }
 
-const TOTAL_SUPPLY = expandTo18Decimals(10000)
+const TOTAL_SUPPLY = expandTo18Decimals(10000000)
 
 // deploy/00_deploy_token1.js
 module.exports = async ({getNamedAccounts, deployments}) => {
@@ -40,8 +40,6 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     //   });
   };
   module.exports.tags = [
-      'Token1'
-      , 'Token2'
-      , 'Token3'
+      'tokens'
     // , 'ERC20'
 ];
